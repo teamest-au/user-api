@@ -1,5 +1,6 @@
 import Koa, { Context } from 'koa';
 import cors from '@koa/cors';
+import bodyParser from 'koa-bodyparser';
 import Logger from '@danielemeryau/logger';
 
 import router from './src/router';
@@ -14,6 +15,7 @@ app.on('error', err => {
 });
 
 app.use(cors());
+app.use(bodyParser());
 app.use(router.routes());
 
 logger.info(`Application listening on ${port}`);

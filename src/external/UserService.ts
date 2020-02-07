@@ -60,4 +60,24 @@ export default class UserService {
       seasonName: result.season_name,
     }));
   }
+
+  async addUserTeamSeason(userId: string, teamSeason: TeamSeasonSummary) {
+    const { teamName, seasonName } = teamSeason;
+    await this.knex('user_team').insert({
+      user_id: userId,
+      team_name: teamName,
+      season_name: seasonName,
+    });
+  }
+
+  async deleteUserTeamSeason(userId: string, teamSeason: TeamSeasonSummary) {
+    const { teamName, seasonName } = teamSeason;
+    await this.knex('user_team')
+      .delete()
+      .where({
+        user_id: userId,
+        team_name: teamName,
+        season_name: seasonName,
+      });
+  }
 }

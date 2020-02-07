@@ -16,4 +16,18 @@ router.get('/api/user/team-season', async ctx => {
   ctx.response.body = result;
 });
 
+router.delete('/api/user/team-season', async ctx => {
+  if (!ctx.userId) {
+    throw new Error('Unexpected authentication error.');
+  }
+  await userService.deleteUserTeamSeason(ctx.userId, ctx.request.body);
+});
+
+router.put('/api/user/team-season', async ctx => {
+  if (!ctx.userId) {
+    throw new Error('Unexpected authentication error.');
+  }
+  await userService.addUserTeamSeason(ctx.userId, ctx.request.body);
+});
+
 export default router;

@@ -16,5 +16,5 @@ app.on('error', err => {
 app.use(cors());
 app.use(router.routes());
 
-logger.info(`Application listening on ${port}`, { test: 'test' });
+logger.info(`Application listening on ${port}`);
 app.listen(port);

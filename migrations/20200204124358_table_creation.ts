@@ -1,6 +1,6 @@
 import * as Knex from 'knex';
 
-import { UserAuthType } from '@vcalendars/models/web';
+import { UserAuthType } from '../src/auth/auth.types';
 const authTypes: UserAuthType[] = ['google'];
 
 export async function up(knex: Knex): Promise<any> {
@@ -16,9 +16,10 @@ export async function up(knex: Knex): Promise<any> {
     table.uuid('user_team_id');
     table.uuid('user_id').notNullable();
     table.foreign('user_id').references('user.user_id');
+    table.string('competition_name').notNullable();
     table.string('season_name').notNullable();
     table.string('team_name').notNullable();
-    table.unique(['user_id', 'season_name', 'team_name']);
+    table.unique(['user_id', 'competition_name', 'season_name', 'team_name']);
     table.timestamps(false, true);
   });
 }

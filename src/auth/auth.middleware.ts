@@ -3,7 +3,7 @@ const { OAuth2Client } = require('google-auth-library');
 
 const googleAuthClient = new OAuth2Client(process.env.GOOGLE_AUTH_CLIENT_ID);
 
-import { UserAuthType } from '@vcalendars/models/web';
+import { UserAuthType } from '../auth/auth.types';
 import ICustomContext from '../custom-context';
 import userService from '../services/user.service';
 

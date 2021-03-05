@@ -1,7 +1,7 @@
 import Knex = require('knex');
 import uuidv4 from 'uuid/v4';
 
-import { UserAuthType } from '@vcalendars/models/web';
+import { UserAuthType } from '../auth/auth.types';
 
 interface TeamSeasonSummary {
   teamName: string;
@@ -19,7 +19,7 @@ export default class UserService {
     authenticationId: string,
   ): Promise<string> {
     let userId: string | undefined;
-    await this.knex.transaction(async tsx => {
+    await this.knex.transaction(async (tsx) => {
       try {
         const existing = await tsx('user')
           .select('user_id')
@@ -55,7 +55,7 @@ export default class UserService {
       .where({
         user_id: userId,
       });
-    return results.map(result => ({
+    return results.map((result) => ({
       teamName: result.team_name,
       seasonName: result.season_name,
     }));
@@ -72,12 +72,10 @@ export default class UserService {
 
   async deleteUserTeamSeason(userId: string, teamSeason: TeamSeasonSummary) {
     const { teamName, seasonName } = teamSeason;
-    await this.knex('user_team')
-      .delete()
-      .where({
-        user_id: userId,
-        team_name: teamName,
-        season_name: seasonName,
-      });
+    await this.knex('user_team').delete().where({
+      user_id: userId,
+      team_name: teamName,
+      season_name: seasonName,
+    });
   }
 }
